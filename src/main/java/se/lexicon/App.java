@@ -1,13 +1,14 @@
 package se.lexicon;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+
+import se.lexicon.dao.CityDao;
+import se.lexicon.dao.CityDaoIml;
+import se.lexicon.model.City;
+
+public class App {
+    public static void main(String[] args) {
+        CityDao dao = new CityDaoIml();
+        City city = dao.findById(11);
+        System.out.println("city = " + city);
     }
 }
