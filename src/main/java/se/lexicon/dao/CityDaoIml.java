@@ -68,8 +68,8 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public City add(City city) {
-        // get the auto_incremented value
-
+        // todo: pass Statement.RETURN_GENERATED_KEYS to PreparedStatement when we want to execute query
+        // Statement.RETURN_GENERATED_KEYS
         return null;
     }
 
