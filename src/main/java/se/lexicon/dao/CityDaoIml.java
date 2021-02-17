@@ -6,6 +6,8 @@ import se.lexicon.model.City;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CityDaoIml implements CityDao {
@@ -16,9 +18,9 @@ public class CityDaoIml implements CityDao {
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
         ) {
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet= preparedStatement.executeQuery();
-            if (resultSet.next()){
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
                 city.setId(resultSet.getInt(1));
                 city.setName(resultSet.getString(2));
                 city.setCountryCode(resultSet.getString(3));
@@ -44,12 +46,30 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public List<City> findAll() {
-        return null;
+        String query = "select * from city";
+        List<City> cityList= new ArrayList<>();
+        try {
+            Statement statement = MySqlConnection.getConnection().createStatement();
+            ResultSet resultSet= statement.executeQuery(query);
+            while (resultSet.next()){
+                cityList.add(new City(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityList;
     }
 
     @Override
     public City add(City city) {
         // get the auto_incremented value
+
         return null;
     }
 
